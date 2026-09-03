@@ -4,8 +4,11 @@ import matplotlib.pyplot as plt
 
 def weight_calc(X, y):
     return np.dot(np.linalg.inv(np.dot(X.transpose(), X)), np.dot(X.transpose(), y))
+
+def error_calc(X, y, w):
+    return np.mean(np.square(np.dot(X, w) - y))
 x = np.linspace(0, 10)#np.random.rand(20)*10
-y = np.sin(x)#*np.random.normal(20, size=20)*0.2
+y = np.sin(x)+np.random.normal(20, size=50)*0.2
 plt.plot(x, y, "x")
 
 X = np.concatenate([np.ones(x.shape)[:, None], x[:,None]], axis=1)
@@ -37,6 +40,7 @@ for i in range(1, 11):
     w = weight_calc(X, y)
     print(w)
     plt.plot(x, np.dot(X, w), ".")
+    #print(error_calc(X, y, w))
 
 plt.show()
 
