@@ -1,19 +1,17 @@
 """
 Created By: Atul Nitin
-Assignment Number: P0
+Assignment Number: P1
 Created Date: Sep. 3rd, 2026
 Last Modified: Sep. 3rd, 2026
-Requirements:
-- pandas
-- numpy
-- matplotlib
 """
 from random import randint
+from random import shuffle
 
 #Import packages
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from math import ceil
 
 
 def linear_regression_weight_calc(X, y):
@@ -24,14 +22,17 @@ def calc_error(X, y, w):
 
 def get_k_fold_inds(n_observations, k):
     to_fill = list()
-    for ind in range(n_observations):
-        to_fill.append(randint(1, k+1))
+    for i in range(k):
+        for j in range(ceil(n_observations/k)):
+            to_fill.append(i+1)
+        n_observations -= ceil(n_observations / k)
+        k -= 1
+    shuffle(to_fill)
     return np.array(to_fill)
 
 #Drag data into pandas because csv reader keeps the top columns, and I don't like that
 pandas_raw = pd.read_csv("p1_mpg.csv")
 
-#I really like pandas, but here is my reluctantly created numpy code 😢
 
 #Turn into Array for numpy stuff
 mpg_data = np.array(pandas_raw)
@@ -204,7 +205,7 @@ print("\t\tError:")
 print("\t\t\t", calc_error(X, y, training_weights), sep="")
 print()
 
-#Displacement & Cylinders & Weight
+#Displacement & Cylinders & Weight & Acceleration
 print("Displacement + Cylinder + Weight + Acceleration:")
 X = np.ones((displacement.__len__(), 5))
 for i in range(len(displacement)):
@@ -237,3 +238,35 @@ I chose to make a model which uses all of the attributes because in general,
  those were the error scores for just the test data that had been randomly
  allotted, so it could just be that the model got really lucky with which data
  was the test data.'''
+
+#Going "Above and beyond"
+
+#Let's make an even BETTER model with LESS error by using all four features in multiple dimensions(multivariate polynomial regression)!!!!
+print("\nEXTRA!!!!!!!")
+#Displacement & Cylinders & Weight & Acceleration
+print("\nDisplacement + Cylinder + Weight + Acceleration BUT in 5 Dimensions, because \"Above and Beyond\":")
+X = np.ones((displacement.__len__(), 17))
+for i in range(len(displacement)):
+    X[i, 1] = displacement[i]
+    X[i, 2] = displacement[i]**2
+    X[i, 3] = displacement[i]**3
+    X[i, 4] = displacement[i]**4
+    X[i, 5] = cylinders[i]
+    X[i, 6] = cylinders[i]**2
+    X[i, 7] = cylinders[i]**3
+    X[i, 8] = cylinders[i]**4
+    X[i, 9] = weight[i]
+    X[i, 10] = weight[i]**2
+    X[i, 11] = weight[i]**3
+    X[i, 12] = weight[i]**4
+    X[i, 13] = acceleration[i]
+    X[i, 14] = acceleration[i]**2
+    X[i, 15] = acceleration[i]**3
+    X[i, 16] = acceleration[i]**4
+y = mpg
+training_weights = linear_regression_weight_calc(X, y)
+print("\t\tWeights[w0 w1 w2 w3 w4 w5 w6 w7 w8 w9 w10 w11 w12 w13 w14 w15 w16]:")
+print("\t\t\t", training_weights, sep="")
+print("\t\tError:")
+print("\t\t\t", calc_error(X, y, training_weights), sep="")
+
