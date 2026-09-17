@@ -21,6 +21,11 @@ pandas_raw = pd.read_csv("iris_data.csv")
 
 #Turn into Array for numpy stuff
 iris_data = np.array(pandas_raw)
+print(iris_data)
+for i in range(iris_data.__len__()):
+    for j in range(4):
+        iris_data[i, j] = float(iris_data[i, j])
+print(iris_data)
 
 #Make empty lists to add on the individual rows to in the for loop
 setosa = []
@@ -28,16 +33,26 @@ virginica = []
 versicolor = []
 for row in iris_data:
     if row[4] == "setosa":
-        setosa.append(list(row))
+        setosa.append(list(row[0:4]))
     elif row[4] == "virginica":
-        virginica.append(list(row))
+        virginica.append(list(row[0:4]))
     elif row[4] == "versicolor":
-        versicolor.append(list(row))
+        versicolor.append(list(row[0:4]))
 
 #Turn lists into arrays for usability
 virginica = np.array(virginica)
 setosa = np.array(setosa)
 versicolor = np.array(versicolor)
+print(setosa)
+for i in range(virginica.__len__()):
+    for j in range(4):
+        virginica[i, j] = float(virginica[i, j])
+for i in range(setosa.__len__()):
+    for j in range(4):
+        setosa[i, j] = float(setosa[i, j])
+for i in range(versicolor.__len__()):
+    for j in range(4):
+        versicolor[i, j] = float(versicolor[i, j])
 
 #Plot graph for part 2(max 10 tick marks!!!)
 plt.plot(virginica[:, 0], virginica[:, 2], ".", color="red", label="virginica")

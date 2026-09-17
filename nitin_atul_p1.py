@@ -42,7 +42,7 @@ weight = mpg_data[:, 3]
 acceleration = mpg_data[:, 4]
 mpg = mpg_data[:, 5]
 
-#For mpg_estimator function
+'''#For mpg_estimator function
 X = np.ones((displacement.__len__(), 5))
 for i in range(len(displacement)):
     X[i, 1] = displacement[i]
@@ -50,7 +50,9 @@ for i in range(len(displacement)):
     X[i, 3] = weight[i]
     X[i, 4] = acceleration[i]
 y = mpg
-mpg_estimator_weights = linear_regression_weight_calc(X, y)
+mpg_estimator_weights = linear_regression_weight_calc(X, y)'''
+#These are the weights for mpg_estimator_weights for all 4 features
+mpg_estimator_weights = np.array([3.97064015e+01, -1.26546232e-02, -6.34727047e-02, -5.35337106e-03,1.15300856e-01])
 
 def mpg_estimator(displacement, cylinders, weight, acceleration):
     return mpg_estimator_weights[0] + mpg_estimator_weights[1]*displacement + mpg_estimator_weights[2]*cylinders + mpg_estimator_weights[3]*weight + mpg_estimator_weights[4]*acceleration
@@ -244,7 +246,7 @@ I chose to make a model which uses all of the attributes because in general,
 #Let's make an even BETTER model with LESS error by using all four features in multiple dimensions(multivariate polynomial regression)!!!!
 print("\nEXTRA!!!!!!!")
 #Displacement & Cylinders & Weight & Acceleration
-print("\nDisplacement + Cylinder + Weight + Acceleration BUT in 5 Dimensions, because \"Above and Beyond\":")
+print("\nDisplacement + Cylinder + Weight + Acceleration BUT in 4 Dimensions, because \"Above and Beyond\":")
 X = np.ones((displacement.__len__(), 17))
 for i in range(len(displacement)):
     X[i, 1] = displacement[i]
