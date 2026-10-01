@@ -3,8 +3,10 @@ import numpy as np
 import pandas as pd
 def hw_x(X, w):
     return 1/(1+(np.e)**(-(X@w)))
+
 def J_w(X, y, w):
     return (-1/X.shape[0])*sum(((y*np.log(hw_x(X, w))) + ((1-y)*np.log(1-hw_x(X, w)))))
+
 def grad_J_w(X, y, w, alpha):
     return (w - ((alpha/X.shape[0])*(np.transpose(hw_x(X, w) - y)@X)))
 
@@ -33,4 +35,5 @@ for i in range(2000000):
     w = grad_J_w(X, y, w, 0.01)
     #print(w)
 print(w)
+print()
 print(J_w(X, y, w))
