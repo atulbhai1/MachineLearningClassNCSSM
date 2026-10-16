@@ -1,0 +1,16 @@
+A report detailing your exploration, why you made certain choices and evidence backing this up. This report does not need to describe the background/methods etc.
+1. Along with a typical report of results, the following questions should be answered:
+    1. What is the estimated performance of this system applied to real scenarios? Do you need more information?
+    2. Why/Why not is this system ready for use in the real world (ignoring regulatory hurdles)?
+    3. Where would you turn next to improve this detection method?
+
+Report:
+In this project, I explored several variations of models in k-folds and found the best one.
+I experimented with differing numbers of descent repetitions, removing weights with varying thresholds, and using regularization.
+I found that a reasonable number of descent repetitions was 1000(from error curve), that regularization was helpful for improving performance,
+and that removing weights below 0.01 did not significantly decrease performance(meaning we can cut those features!).
+This system should be able to detect cancer in 99.439% of patients who have it(recall).
+The precision is 98.066% though, which may be low for medical applications as false diagnoses are terrible for patients.
+If that is an acceptable precision though, this system is ready for use in the real world.
+I would like to improve this system by gathering more samples as there are only a few hundered in this dataset and more would be able to help improve the model.
+One benefit of this model is that two features were found to be unnecessary and thus don't need to be collected from patients.
